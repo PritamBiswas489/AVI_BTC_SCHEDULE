@@ -1,0 +1,4 @@
+{
+  "/api/booking/[token]/slots/route": "app/api/booking/[token]/slots/route.js",
+  "/call/[token]/page": "app/call/[token]/page.js"
+}
