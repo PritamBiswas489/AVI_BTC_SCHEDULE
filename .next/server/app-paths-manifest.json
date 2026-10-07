@@ -1,7 +1,0 @@
-{
-  "/api/booking/[token]/dates/route": "app/api/booking/[token]/dates/route.js",
-  "/api/booking/[token]/slots/route": "app/api/booking/[token]/slots/route.js",
-  "/api/booking/[token]/book/route": "app/api/booking/[token]/book/route.js",
-  "/call/[token]/page": "app/call/[token]/page.js",
-  "/page": "app/page.js"
-}
