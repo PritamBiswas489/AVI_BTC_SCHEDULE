@@ -2,8 +2,8 @@ import styles from './booking.module.css';
 import { formatTime } from './formatTime.js';
 
 export default function SuccessStep({ appointment }) {
-  console.log("SuccessStep appointment:", appointment);
-  const dateLabel = appointment?.bookingDate.split('T')?.[0];
+  const dateLabel = appointment?.bookingDate.split('T')?.[0].split('-').reverse().join('-');
+
   return (
     <section className={styles.card}>
       <div className={`${styles.confirmIcon} ${styles.successIcon}`}>✓</div>

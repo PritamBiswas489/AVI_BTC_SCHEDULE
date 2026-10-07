@@ -1,4 +1,5 @@
 export function formatTime(time) {
+    return time;
   if (typeof time !== 'string') return time ?? '';
 
   const match = /^(\d{1,2}):(\d{2})(?::\d{2})?$/.exec(time.trim());

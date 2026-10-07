@@ -48,9 +48,8 @@ export default function BookingFlow({ token }) {
 
   const selectedDateLabel = useMemo(() => {
     if (!selectedDate) return '';
-    return new Intl.DateTimeFormat('he-IL', {
-      weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC'
-    }).format(new Date(`${selectedDate}T12:00:00Z`));
+    const [year, month, day] = selectedDate.split('-');
+    return `${day}-${month}-${year}`;
   }, [selectedDate]);
 
   async function continueFromDate() {
@@ -154,7 +153,7 @@ export default function BookingFlow({ token }) {
           )}
 
           {step === STEP_SUCCESS && (
-            <SuccessStep appointment={result} />
+            <SuccessStep appointment={result}  />
           )}
         </div>
       </section>
