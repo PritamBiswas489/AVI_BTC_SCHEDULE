@@ -21,27 +21,30 @@ export default function BookingFlow({ token }) {
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [result, setResult] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  // useEffect(() => {
-  //   let active = true;
-  //   Promise.all([
-  //     fetch(`/api/booking/${encodeURIComponent(token)}`).then(r => r.json().then(body => ({ ok: r.ok, body }))),
-  //     fetch(`/api/booking/${encodeURIComponent(token)}/dates`).then(r => r.json().then(body => ({ ok: r.ok, body }))),
-  //   ]).then(([info, dates]) => {
-  //     if (!active) return;
-  //     if (!info.ok) throw new Error(info.body?.message || 'לא ניתן לטעון את הקישור.');
-  //     if (!dates.ok) throw new Error(dates.body?.message || 'לא ניתן לטעון תאריכים זמינים.');
-  //     setBooking(info.body);
-  //     setAvailableDates(dates.body.dates || []);
-  //     if (info.body.appointment) {
-  //       setResult(info.body.appointment);
-  //       setStep(STEP_SUCCESS);
-  //     }
-  //   }).catch(err => active && setError(err.message)).finally(() => active && setLoading(false));
-  //   return () => { active = false; };
-  // }, [token]);
+  useEffect(() => {
+    console.log("Fetching available dates for token:", token);
+    let active = true;
+    Promise.all([
+       new Promise((resolve) => resolve({ ok: true, body: {} })),
+      // fetch(`/api/booking/${encodeURIComponent(token)}`).then(r => r.json().then(body => ({ ok: r.ok, body }))),
+      fetch(`/api/booking/${encodeURIComponent(token)}/dates`).then(r => r.json().then(body => ({ ok: r.ok, body }))),
+    ]).then(([info, dates]) => {
+      console.log("=======Available Dates====", dates);
+      if (!active) return;
+      if (!info.ok) throw new Error(info.body?.message || 'לא ניתן לטעון את הקישור.');
+      if (!dates.ok) throw new Error(dates.body?.message || 'לא ניתן לטעון תאריכים זמינים.');
+      setBooking(info.body);
+      setAvailableDates(dates?.body?.data || []);
+      if (info.body.appointment) {
+        setResult(info.body.appointment);
+        setStep(STEP_SUCCESS);
+      }
+    }).catch(err => active && setError(err.message)).finally(() => active && setLoading(false));
+    return () => { active = false; };
+  }, [token]);
 
   const selectedDateLabel = useMemo(() => {
     if (!selectedDate) return '';
@@ -54,11 +57,11 @@ export default function BookingFlow({ token }) {
     if (!selectedDate) return;
     setLoading(true);
     setError('');
-    try {
+    try {   
       const response = await fetch(`/api/booking/${encodeURIComponent(token)}/slots?date=${encodeURIComponent(selectedDate)}`);
       const body = await response.json();
       if (!response.ok) throw new Error(body?.message || 'לא ניתן לטעון שעות זמינות.');
-      setSlots(body.slots || []);
+      setSlots(body?.data || []);
       setSelectedTime('');
       setStep(STEP_TIME);
     } catch (err) {
@@ -67,7 +70,7 @@ export default function BookingFlow({ token }) {
       setLoading(false);
     }
   }
-
+  //confirm booking 
   async function confirmBooking() {
     setLoading(true);
     setError('');
@@ -75,7 +78,7 @@ export default function BookingFlow({ token }) {
       const response = await fetch(`/api/booking/${encodeURIComponent(token)}/book`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ date: selectedDate, time: selectedTime }),
+        body: JSON.stringify({ date: selectedDate, slot: selectedTime, "ticket_id": token }),
       });
       const body = await response.json();
       if (!response.ok) {
@@ -86,7 +89,7 @@ export default function BookingFlow({ token }) {
         }
         throw new Error(body?.message || 'לא ניתן לקבוע את השיחה.');
       }
-      setResult(body.appointment);
+      setResult(body.data);
       setStep(STEP_SUCCESS);
     } catch (err) {
       setError(err.message);

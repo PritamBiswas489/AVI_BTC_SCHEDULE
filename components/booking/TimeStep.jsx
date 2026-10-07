@@ -1,4 +1,5 @@
 import styles from './booking.module.css';
+import { formatTime } from './formatTime.js';
 
 export default function TimeStep({ dateLabel, slots, selectedTime, onSelectTime, onBack, onContinue }) {
   const available = slots.filter(slot => slot.available !== false);
@@ -19,7 +20,7 @@ export default function TimeStep({ dateLabel, slots, selectedTime, onSelectTime,
               className={`${styles.slotButton} ${selectedTime === slot.time ? styles.slotSelected : ''}`}
               onClick={() => onSelectTime(slot.time)}
             >
-              {slot.time}
+              {formatTime(slot.time)}
             </button>
           ))}
         </div>

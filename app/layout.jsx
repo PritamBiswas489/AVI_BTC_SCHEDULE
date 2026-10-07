@@ -7,7 +7,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="he" dir="rtl">
+      <html lang="he" dir="rtl" translate="no">
+        <meta name="google" content="notranslate" />
       <body>{children}</body>
     </html>
   );

@@ -1,13 +1,19 @@
 .page {
-  min-height: 100vh;
-  padding: 22px 12px;
+  height: 100vh;
+  height: 100dvh;
+  padding: clamp(8px, 2vh, 22px) 12px;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
+  overflow: hidden;
 }
 
 .phoneShell {
   width: min(100%, 540px);
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   border-radius: 42px;
   background: rgba(255,255,255,.95);
@@ -17,8 +23,8 @@
 
 .hero {
   position: relative;
-  min-height: 355px;
-  padding: 42px 36px 54px;
+  flex: 0 0 clamp(190px, 38vh, 355px);
+  padding: clamp(18px, 3vh, 42px) 36px clamp(24px, 5vh, 54px);
   text-align: center;
   background:
     radial-gradient(circle at 18% 70%, rgba(38, 196, 218, .22), transparent 28%),
@@ -38,27 +44,27 @@
 .hero::before { right: -50px; transform: rotate(-10deg); }
 .hero::after { left: -50px; transform: rotate(10deg); }
 .logo { width: min(320px, 72%); height: auto; object-fit: contain; position: relative; z-index: 1; }
-.hero h1 { margin: 38px 0 8px; font-size: clamp(38px, 8vw, 58px); line-height: 1; color: var(--navy); position: relative; z-index: 1; }
-.hero p { max-width: 410px; margin: 0 auto; font-size: 20px; line-height: 1.55; color: var(--navy-soft); position: relative; z-index: 1; }
+.hero h1 { margin: clamp(12px, 3vh, 38px) 0 8px; font-size: clamp(30px, 5vh, 46px); line-height: 1; color: var(--navy); position: relative; z-index: 1; }
+.hero p { max-width: 410px; margin: 0 auto; font-size: 17px; line-height: 1.4; color: var(--navy-soft); position: relative; z-index: 1; }
 .closeButton {
-  position: absolute; top: 34px; left: 26px; z-index: 3;
-  width: 54px; height: 54px; border: 0; border-radius: 18px;
-  background: rgba(255,255,255,.94); color: var(--navy); font-size: 36px; line-height: 1;
+  position: absolute; top: 18px; left: 18px; z-index: 3;
+  width: 42px; height: 42px; border: 0; border-radius: 14px;
+  background: rgba(255,255,255,.94); color: var(--navy); font-size: 30px; line-height: 1;
   box-shadow: 0 8px 24px rgba(7, 69, 93, .12);
 }
 
-.content { margin-top: -22px; padding: 0 22px 28px; position: relative; z-index: 2; }
+.content { margin-top: -18px; padding: 0 22px 10px; position: relative; z-index: 2; flex: 1; min-height: 0; display: flex; flex-direction: column; }
 .stepper {
   display: flex; flex-direction: row; justify-content: space-between; gap: 8px;
-  padding: 0 8px 26px;
+  flex: 0 0 auto; padding: 0 8px clamp(8px, 1.5vh, 20px);
 }
 .stepItem { position: relative; flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; }
 .stepItem:not(:last-child)::after {
   content: ''; position: absolute; top: 24px; left: -52%; width: 100%; height: 3px; background: #e1e9ed; z-index: 0;
 }
 .stepCircle {
-  width: 52px; height: 52px; display: grid; place-items: center; border-radius: 50%;
-  background: #edf1f3; color: #73879a; font-size: 20px; position: relative; z-index: 1;
+  width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%;
+  background: #edf1f3; color: #73879a; font-size: 18px; position: relative; z-index: 1;
 }
 .stepActive { background: linear-gradient(135deg, var(--teal), #02bfd0); color: white; box-shadow: 0 10px 28px rgba(0, 169, 187, .25); }
 .stepDone { background: #c9f0f3; color: var(--teal-dark); }
@@ -66,17 +72,29 @@
 .stepLabelActive { color: var(--teal-dark); font-weight: 800; }
 
 .card {
-  background: var(--surface); border-radius: 30px; padding: 26px;
+  flex: 1; min-height: 0; display: flex; flex-direction: column;
+  overflow-y: auto; overscroll-behavior: contain;
+  background: var(--surface); border-radius: 24px; padding: clamp(12px, 2vh, 24px);
   box-shadow: var(--shadow); border: 1px solid rgba(220, 235, 241, .85);
 }
-.calendarHeader { display: grid; grid-template-columns: 48px 1fr 48px; align-items: center; gap: 8px; margin-bottom: 18px; }
-.calendarHeader h2 { margin: 0; text-align: center; font-size: 27px; }
-.iconButton { width: 46px; height: 46px; border: 0; border-radius: 50%; background: #effbff; color: var(--navy); font-size: 34px; }
+.entryCard { justify-content: center; }
+.entryTitle { margin: 0 0 18px; text-align: center; font-size: 25px; }
+.ticketForm { width: 100%; }
+.ticketLabel { display: block; margin-bottom: 8px; color: var(--navy-soft); font-weight: 700; }
+.ticketInput {
+  width: 100%; min-height: 54px; padding: 10px 14px; border: 1px solid #b8d2dc;
+  border-radius: 14px; background: #fff; color: var(--navy); font-size: 20px;
+}
+.ticketInput:focus { outline: 3px solid rgba(8, 167, 182, .2); border-color: var(--teal); }
+.calendarHeader { display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; gap: 8px; margin-bottom: 8px; }
+.calendarHeader h2 { margin: 0; text-align: center; font-size: 22px; }
+.iconButton { width: 38px; height: 38px; border: 0; border-radius: 50%; background: #effbff; color: var(--navy); font-size: 28px; }
 .weekdays, .calendarGrid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 7px; }
-.weekdays { margin-bottom: 10px; color: #60778c; font-weight: 700; text-align: center; }
-.weekdays span { padding: 8px 0; }
+.weekdays { flex: 0 0 auto; margin-bottom: 4px; color: #60778c; font-weight: 700; text-align: center; }
+.weekdays span { padding: 4px 0; }
+.calendarGrid { flex: 1; min-height: 0; grid-template-rows: repeat(6, minmax(0, 1fr)); }
 .dayButton, .emptyDay {
-  min-height: 50px; border: 0; background: transparent; border-radius: 50%;
+  min-height: 0; border: 0; background: transparent; border-radius: 50%;
 }
 .dayButton { color: var(--navy); font-size: 18px; transition: .16s ease; }
 .dayButton:disabled { color: #c2ced7; cursor: default; }
@@ -84,38 +102,38 @@
 .daySelected { background: linear-gradient(135deg, var(--teal), #04bfd0) !important; color: white !important; font-weight: 800; box-shadow: 0 9px 22px rgba(0, 163, 183, .24); }
 
 .infoBox, .whatsappBox {
-  margin-top: 22px; padding: 18px 20px; border-radius: 20px;
+  flex: 0 0 auto; margin-top: 12px; padding: 12px 14px; border-radius: 16px;
   background: linear-gradient(90deg, #edfaff, #e1f8fb); color: var(--navy); line-height: 1.5;
   display: flex; gap: 12px; align-items: center; justify-content: center; text-align: center;
 }
 .whatsappBox { background: #e8fbf1; }
 .primaryButton {
-  width: 100%; margin-top: 22px; min-height: 64px; border: 0; border-radius: 32px;
-  color: #fff; font-size: 23px; font-weight: 800;
+  flex: 0 0 auto; width: 100%; margin-top: 12px; min-height: 52px; border: 0; border-radius: 26px;
+  color: #fff; font-size: 20px; font-weight: 800;
   background: linear-gradient(90deg, var(--orange), var(--orange-2));
   box-shadow: 0 16px 30px rgba(255, 105, 0, .23);
 }
 .primaryButton:disabled { opacity: .45; cursor: not-allowed; box-shadow: none; }
 
 .selectionSummary {
-  display: flex; align-items: center; gap: 14px; padding: 18px;
-  border-radius: 20px; background: #eefbff; margin-bottom: 28px;
+  display: flex; align-items: center; gap: 14px; padding: 12px;
+  border-radius: 16px; background: #eefbff; margin-bottom: 16px;
 }
 .selectionSummary small { display: block; color: #5f788e; font-size: 15px; margin-bottom: 4px; }
 .selectionSummary strong { font-size: 21px; }
 .summaryIcon { width: 52px; height: 52px; display: grid; place-items: center; background: #d9f6fa; border-radius: 50%; font-size: 24px; }
-.sectionTitle { text-align: center; font-size: 30px; margin: 0 0 22px; }
-.slotGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-.slotButton { min-height: 58px; border: 2px solid #dbe9ee; border-radius: 17px; background: white; color: var(--navy); font-size: 20px; }
+.sectionTitle { flex: 0 0 auto; text-align: center; font-size: 24px; margin: 0 0 14px; }
+.slotGrid { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(2, 1fr); align-content: start; gap: 8px; overflow-y: auto; }
+.slotButton { min-height: 46px; border: 2px solid #dbe9ee; border-radius: 14px; background: white; color: var(--navy); font-size: 18px; }
 .slotSelected { border-color: var(--teal); background: linear-gradient(135deg, var(--teal), #05becf); color: white; font-weight: 800; }
-.softAction { width: 100%; margin-top: 18px; padding: 16px; border: 0; border-radius: 18px; background: #edfafd; color: var(--teal-dark); font-weight: 800; font-size: 16px; }
+.softAction { flex: 0 0 auto; width: 100%; margin-top: 10px; padding: 12px; border: 0; border-radius: 16px; background: #edfafd; color: var(--teal-dark); font-weight: 800; font-size: 15px; }
 .emptyState { text-align: center; padding: 32px 12px; color: var(--muted); }
 
-.confirmIcon { width: 88px; height: 88px; margin: 4px auto 16px; border-radius: 50%; display: grid; place-items: center; background: #c9f7f2; color: var(--teal-dark); font-size: 52px; font-weight: 900; }
+.confirmIcon { flex: 0 0 auto; width: 64px; height: 64px; margin: 0 auto 12px; border-radius: 50%; display: grid; place-items: center; background: #c9f7f2; color: var(--teal-dark); font-size: 40px; font-weight: 900; }
 .successIcon { background: linear-gradient(135deg, #05b0bb, #04c3c8); color: #fff; box-shadow: 0 14px 32px rgba(0, 170, 184, .25); }
-.confirmTitle, .successTitle { text-align: center; font-size: 30px; margin: 0 0 22px; }
+.confirmTitle, .successTitle { flex: 0 0 auto; text-align: center; font-size: 24px; margin: 0 0 14px; }
 .detailsCard { border-radius: 22px; overflow: hidden; border: 1px solid #e2edf1; }
-.detailRow { display: grid; grid-template-columns: 44px 105px 1fr; align-items: center; gap: 8px; padding: 16px 14px; border-bottom: 1px solid #e6eef2; }
+.detailRow { display: grid; grid-template-columns: 38px 90px 1fr; align-items: center; gap: 8px; padding: 10px 12px; border-bottom: 1px solid #e6eef2; }
 .detailRow:last-child { border-bottom: 0; }
 .detailIcon { width: 38px; height: 38px; display: grid; place-items: center; background: #ecfaff; border-radius: 50%; }
 .detailLabel { color: #58738a; }
@@ -126,14 +144,48 @@
 
 @media (max-width: 520px) {
   .page { padding: 0; }
-  .phoneShell { border-radius: 0; min-height: 100vh; }
-  .hero { min-height: 320px; padding: 32px 24px 48px; }
-  .hero h1 { margin-top: 28px; }
-  .hero p { font-size: 18px; }
-  .content { padding: 0 14px 22px; }
-  .card { padding: 20px 16px; border-radius: 26px; }
-  .stepCircle { width: 46px; height: 46px; }
-  .stepItem:not(:last-child)::after { top: 21px; }
-  .detailRow { grid-template-columns: 38px 88px 1fr; font-size: 14px; }
-  .detailValue { font-size: 14px; }
+  .phoneShell { border-radius: 0; }
+  .hero { flex-basis: clamp(138px, 25dvh, 205px); padding: 14px 20px 20px; }
+  .logo { width: min(230px, 62%); max-height: 48px; }
+  .hero h1 { margin-top: clamp(8px, 1.5dvh, 14px); font-size: clamp(25px, 6vw, 34px); }
+  .hero p { max-width: 360px; font-size: 14px; line-height: 1.35; }
+  .closeButton { top: 12px; left: 12px; width: 36px; height: 36px; font-size: 26px; }
+  .content { margin-top: -12px; padding: 0 10px 8px; }
+  .stepper { gap: 4px; padding: 0 4px 8px; }
+  .stepCircle { width: 36px; height: 36px; font-size: 16px; }
+  .stepItem { gap: 4px; }
+  .stepItem:not(:last-child)::after { top: 17px; }
+  .stepLabel, .stepLabelActive { font-size: 13px; }
+  .card { padding: 10px; border-radius: 18px; }
+  .entryTitle { font-size: 21px; }
+  .ticketInput { min-height: 48px; font-size: 18px; }
+  .calendarHeader { grid-template-columns: 34px 1fr 34px; margin-bottom: 4px; }
+  .calendarHeader h2 { font-size: 18px; }
+  .iconButton { width: 32px; height: 32px; font-size: 24px; }
+  .weekdays, .calendarGrid { gap: 3px; }
+  .weekdays span { padding: 2px 0; font-size: 13px; }
+  .infoBox, .whatsappBox { margin-top: 8px; padding: 8px 10px; font-size: 13px; }
+  .primaryButton { min-height: 44px; margin-top: 8px; font-size: 17px; }
+  .selectionSummary { gap: 9px; padding: 9px; margin-bottom: 10px; }
+  .selectionSummary small { font-size: 13px; }
+  .selectionSummary strong { font-size: 17px; }
+  .summaryIcon { width: 40px; height: 40px; font-size: 20px; }
+  .sectionTitle { font-size: 20px; margin-bottom: 8px; }
+  .slotGrid { gap: 6px; }
+  .slotButton { min-height: 40px; font-size: 16px; }
+  .softAction { padding: 9px; font-size: 13px; }
+  .confirmIcon { width: 52px; height: 52px; font-size: 32px; margin-bottom: 8px; }
+  .confirmTitle, .successTitle { font-size: 20px; margin-bottom: 10px; }
+  .detailRow { grid-template-columns: 32px 78px 1fr; gap: 6px; padding: 8px; font-size: 13px; }
+  .detailIcon { width: 30px; height: 30px; }
+  .detailValue { font-size: 13px; }
+}
+
+@media (max-height: 620px) {
+  .hero { flex-basis: clamp(118px, 22dvh, 150px); }
+  .logo { max-height: 38px; }
+  .hero p { display: none; }
+  .stepper { padding-bottom: 5px; }
+  .infoBox, .whatsappBox { padding: 6px 8px; }
+  .primaryButton { min-height: 38px; }
 }

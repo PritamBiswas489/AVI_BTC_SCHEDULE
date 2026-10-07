@@ -51,7 +51,7 @@ export default function DateStep({ availableDates, selectedDate, onSelectDate, o
             <button
               key={date}
               type="button"
-              // disabled={!enabled}
+              disabled={!enabled}
               className={`${styles.dayButton} ${selected ? styles.daySelected : ''}`}
               onClick={() => onSelectDate(date)}
             >

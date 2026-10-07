@@ -1,4 +1,5 @@
 import styles from './booking.module.css';
+import { formatTime } from './formatTime.js';
 
 export default function ConfirmStep({ dateLabel, time, duration, timezoneLabel, onBack, onConfirm, loading }) {
   return (
@@ -8,9 +9,7 @@ export default function ConfirmStep({ dateLabel, time, duration, timezoneLabel, 
 
       <div className={styles.detailsCard}>
         <Detail icon="📅" label="תאריך" value={dateLabel} />
-        <Detail icon="◷" label="שעה" value={time} />
-        <Detail icon="⏱" label="משך השיחה" value={`${duration} דקות`} />
-        <Detail icon="🌐" label="אזור זמן" value={timezoneLabel} />
+        <Detail icon="◷" label="שעה" value={formatTime(time)} />
       </div>
 
       <div className={styles.infoBox}>ⓘ <span>לאחר האישור, ניצור את השיחה במועד שבחרתם.</span></div>
