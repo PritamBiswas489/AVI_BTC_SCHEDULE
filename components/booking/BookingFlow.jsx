@@ -110,7 +110,7 @@ export default function BookingFlow({ token }) {
       <section className={styles.phoneShell}>
         <header className={styles.hero}>
           <button className={styles.closeButton} type="button" aria-label="סגירה" onClick={() => window.location.assign(process.env.NEXT_PUBLIC_FINISH_URL || 'https://www.lametayel-thailand.com/')}>×</button>
-          <img className={styles.logo} src="/images/lametayel-logo.png" alt="המרכז למטייל תאילנד" />
+          <img className={styles.logo} src="/images/lametayel-logo.jpeg" alt="המרכז למטייל תאילנד" />
           <h1>תיאום שיחה</h1>
           <p>בחרו יום ושעה שנוחים לכם לשיחה, ולאחר מכן אשרו את המועד.</p>
         </header>
