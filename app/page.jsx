@@ -19,7 +19,7 @@ export default function HomePage() {
     <main className={styles.page}>
       <section className={styles.phoneShell}>
         <header className={styles.hero}>
-          <img className={styles.logo} src="/images/lametayel-logo.jpeg" alt="המרכז למטייל תאילנד" />
+          <img className={styles.logo} src="/images/lametayel-logo.png" alt="המרכז למטייל תאילנד" />
           <h1>תיאום שיחה</h1>
           <p>הזינו את מספר הכרטיס כדי להמשיך לבחירת מועד לשיחה.</p>
         </header>
